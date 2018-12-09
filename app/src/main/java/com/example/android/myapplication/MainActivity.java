@@ -1,5 +1,7 @@
 package com.example.android.myapplication;
 
+import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 TextView currencyText = (TextView) findViewById(R.id.textViewCurrency);
+                currencyText.setTextSize(16);
                 currencyText.setText("Enter " + currency1 + " amount:");
             }
 
@@ -148,23 +151,26 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "HTTP Success");
 
                         try {
-                            JSONObject jsonObj = new JSONObject(response);
-                            JSONObject ratesObject = jsonObj.getJSONObject("rates");
-
-                            Double rate1 = ratesObject.getDouble(currency1);
-                            Double rate2 = ratesObject.getDouble(currency2);
-                            Log.i(TAG, currency1 + rate1);
-                            Log.i(TAG, currency2 + rate2);
-
                             EditText textCurrency = (EditText) findViewById(R.id.editTextCurrency);
-                            Double currencyValue = Double.valueOf(textCurrency.getText().toString());
-                            Double resultValue = (currencyValue / rate1) * rate2;
-                            if(textCurrency.getText().toString().equals("")) {
-                                Toast.makeText(getApplicationContext(), "Please enter a USD value", Toast.LENGTH_LONG).show();
+                            if(!(textCurrency.getText().toString().isEmpty())) {
+                                JSONObject jsonObj = new JSONObject(response);
+                                JSONObject ratesObject = jsonObj.getJSONObject("rates");
+
+                                Double rate1 = ratesObject.getDouble(currency1);
+                                Double rate2 = ratesObject.getDouble(currency2);
+                                Log.i(TAG, currency1 + rate1);
+                                Log.i(TAG, currency2 + rate2);
+
+                                Double currencyValue = Double.valueOf(textCurrency.getText().toString());
+                                Double resultValue = (currencyValue / rate1) * rate2;
+
+                                DecimalFormat df = new DecimalFormat("#.##");
+                                result.setTextSize(16);
+                                result.setTextColor(Color.BLUE);
+                                result.setText("Converted amount:   " + df.format(resultValue) + " " + currency2);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Please enter a currency value", Toast.LENGTH_LONG).show();
                             }
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            result.setTextSize(18);
-                            result.setText(df.format(resultValue).toString() + " " + currency2);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
