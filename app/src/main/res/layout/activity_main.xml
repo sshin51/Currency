@@ -60,8 +60,8 @@
         android:id="@+id/textViewresult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/ButtonConvert"
         app:layout_constraintTop_toBottomOf="@+id/ButtonConvert" />

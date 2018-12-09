@@ -17,6 +17,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MP6:Main";
@@ -160,8 +162,9 @@ public class MainActivity extends AppCompatActivity {
                             if(textCurrency.getText().toString().equals("")) {
                                 Toast.makeText(getApplicationContext(), "Please enter a USD value", Toast.LENGTH_LONG).show();
                             }
+                            DecimalFormat df = new DecimalFormat("#.##");
                             result.setTextSize(18);
-                            result.setText(resultValue.toString() + " " + currency2);
+                            result.setText(df.format(resultValue).toString() + " " + currency2);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
