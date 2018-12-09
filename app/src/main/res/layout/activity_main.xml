@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewUSD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -28,73 +28,44 @@
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textViewUSD"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewKRW"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
-        android:layout_marginTop="42dp"
-        android:text="KRW"
-        app:layout_constraintStart_toStartOf="@+id/editTextUSD"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUSD" />
-
-    <TextView
-        android:id="@+id/textViewEUR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:text="EUR"
-        app:layout_constraintStart_toStartOf="@+id/textViewKRW"
-        app:layout_constraintTop_toBottomOf="@+id/textViewKRW" />
-
-    <Button
-        android:id="@+id/exchange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:text="change"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEUR" />
-
     <Spinner
-        android:id="@+id/country"
+        android:id="@+id/SpinnerChoose"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="186dp"
+        android:layout_marginBottom="336dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/choose"
+        android:id="@+id/ButtonConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Button"
         android:onClick="displayResult"
+        android:text="Convert"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country" />
+        app:layout_constraintTop_toBottomOf="@+id/SpinnerChoose" />
 
     <TextView
-        android:id="@+id/result"
+        android:id="@+id/TextViewresult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="12dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/choose"
-        app:layout_constraintTop_toBottomOf="@+id/choose" />
+        app:layout_constraintStart_toStartOf="@+id/ButtonConvert"
+        app:layout_constraintTop_toBottomOf="@+id/ButtonConvert" />
 
 
 </android.support.constraint.ConstraintLayout>
