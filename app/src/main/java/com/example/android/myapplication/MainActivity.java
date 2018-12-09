@@ -20,53 +20,111 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MP6:Main";
-    private Spinner sp;
-    private String names[] = {"KRW | South-Korean Won", "EUR | Euro", "GBP | British Pound", "CAD | Canadian Dollar",
-                              "AUD | Australian Dollar", "CHF | Swiss Franc", "CNY | Chinese Yuan", "JPY | Japanese Yen", "MXN | Mexican Peso"};
+    private Spinner sp1, sp2;
+    private String names[] = {"USD | US Dollar", "KRW | South-Korean Won", "EUR | Euro", "GBP | British Pound", "CAD | Canadian Dollar", "AUD | Australian Dollar",
+                              "CHF | Swiss Franc", "CNY | Chinese Yuan", "INR | Indian Rupee", "JPY | Japanese Yen", "MXN | Mexican Peso"};
     private ArrayAdapter <String> adapter;
 
     private static final String API_URL = "https://openexchangerates.org/api/latest.json?app_id=85abb5fdce1c441c916510773248d112";
-    private String record = "";
+    private String currency1 = "";
+    private String currency2 = "";
     private TextView result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sp = (Spinner)findViewById(R.id.SpinnerChoose);
+        sp1 = (Spinner)findViewById(R.id.SpinnerChoose1);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
-        sp.setAdapter(adapter);
-        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sp1.setAdapter(adapter);
+        sp2 = (Spinner)findViewById(R.id.SpinnerChoose2);
+        sp2.setAdapter(adapter);
+
+        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position)
                 {
                     case 0:
-                        record = "KRW";
+                        currency1 = "USD";
                         break;
                     case 1:
-                        record = "EUR";
+                        currency1 = "KRW";
                         break;
                     case 2:
-                        record = "GBP";
+                        currency1 = "EUR";
                         break;
                     case 3:
-                        record = "CAD";
+                        currency1 = "GBP";
                         break;
                     case 4:
-                        record = "AUD";
+                        currency1 = "CAD";
                         break;
                     case 5:
-                        record = "CHF";
+                        currency1 = "AUD";
                         break;
                     case 6:
-                        record = "CNY";
+                        currency1 = "CHF";
                         break;
                     case 7:
-                        record = "JPY";
+                        currency1 = "CNY";
                         break;
                     case 8:
-                        record = "MXN";
+                        currency1 = "INR";
+                        break;
+                    case 9:
+                        currency1 = "JPY";
+                        break;
+                    case 10:
+                        currency1 = "MXN";
+                        break;
+                }
+                TextView currencyText = (TextView) findViewById(R.id.textViewCurrency);
+                currencyText.setText("Enter " + currency1 + " amount:");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position)
+                {
+                    case 0:
+                        currency2 = "USD";
+                        break;
+                    case 1:
+                        currency2 = "KRW";
+                        break;
+                    case 2:
+                        currency2 = "EUR";
+                        break;
+                    case 3:
+                        currency2 = "GBP";
+                        break;
+                    case 4:
+                        currency2 = "CAD";
+                        break;
+                    case 5:
+                        currency2 = "AUD";
+                        break;
+                    case 6:
+                        currency2 = "CHF";
+                        break;
+                    case 7:
+                        currency2 = "CNY";
+                        break;
+                    case 8:
+                        currency2 = "INR";
+                        break;
+                    case 9:
+                        currency2 = "JPY";
+                        break;
+                    case 10:
+                        currency2 = "MXN";
                         break;
                 }
             }
@@ -76,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        result = (TextView)findViewById(R.id.TextViewresult);
-        Button convert = (Button)findViewById(R.id.ButtonConvert);
+        result = (TextView) findViewById(R.id.textViewresult);
+        Button convert = (Button) findViewById(R.id.ButtonConvert);
         convert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,18 +149,19 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject jsonObj = new JSONObject(response);
                             JSONObject ratesObject = jsonObj.getJSONObject("rates");
 
-                            Double rate = ratesObject.getDouble(record);
-                            Log.i(TAG, record + rate);
+                            Double rate1 = ratesObject.getDouble(currency1);
+                            Double rate2 = ratesObject.getDouble(currency2);
+                            Log.i(TAG, currency1 + rate1);
+                            Log.i(TAG, currency2 + rate2);
 
-
-                            EditText usdValue = (EditText)findViewById(R.id.editTextUSD);
-                            Double usd = Double.valueOf(usdValue.getText().toString());
-                            Double resultValue = usd * rate;
-                            if(usdValue.getText().toString().equals("")) {
+                            EditText textCurrency = (EditText) findViewById(R.id.editTextCurrency);
+                            Double currencyValue = Double.valueOf(textCurrency.getText().toString());
+                            Double resultValue = (currencyValue / rate1) * rate2;
+                            if(textCurrency.getText().toString().equals("")) {
                                 Toast.makeText(getApplicationContext(), "Please enter a USD value", Toast.LENGTH_LONG).show();
                             }
                             result.setTextSize(18);
-                            result.setText(resultValue.toString());
+                            result.setText(resultValue.toString() + " " + currency2);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -112,8 +171,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(Throwable arg0, String arg1) {
                         super.onFailure(arg0, arg1);
                     }
-
-
                 });
             }
         });
