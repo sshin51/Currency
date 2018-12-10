@@ -28,20 +28,20 @@ public class MainActivity extends AppCompatActivity {
     private String names[] = {"USD | US Dollar", "KRW | South-Korean Won", "EUR | Euro", "GBP | British Pound", "CAD | Canadian Dollar", "AUD | Australian Dollar",
                               "CHF | Swiss Franc", "CNY | Chinese Yuan", "INR | Indian Rupee", "JPY | Japanese Yen", "MXN | Mexican Peso"};
     private ArrayAdapter <String> adapter;
-
     private static final String API_URL = "https://openexchangerates.org/api/latest.json?app_id=85abb5fdce1c441c916510773248d112";
     private String currency1 = "";
     private String currency2 = "";
     private TextView result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sp1 = (Spinner)findViewById(R.id.SpinnerChoose1);
+        sp1 = (Spinner) findViewById(R.id.SpinnerChoose1);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
         sp1.setAdapter(adapter);
-        sp2 = (Spinner)findViewById(R.id.SpinnerChoose2);
+        sp2 = (Spinner) findViewById(R.id.SpinnerChoose2);
         sp2.setAdapter(adapter);
 
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
